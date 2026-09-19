@@ -1,0 +1,10 @@
+{
+  "name": "LOCALIZANDO FAMILIA",
+  "short_name": "Mi Familia",
+  "description": "Aplicación para saber si los miembros de la familia están bien.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "lang": "es"
+}
