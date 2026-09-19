@@ -479,8 +479,31 @@ async function activarNotificaciones() {
 
 
     console.log("TOKEN FCM:", token);
+    const persona = document.getElementById("persona").value;
 
+if (!persona) {
+  mensaje.innerHTML =
+    "⚠️ Primero selecciona tu nombre.";
+  return;
+}
 
+await fetch(API_URL, {
+  method: "POST",
+  headers: {
+    "Content-Type": "text/plain;charset=utf-8"
+  },
+  body: JSON.stringify({
+    accion: "registrarDispositivo",
+    persona: persona,
+    token: token
+  })
+});
+
+mensaje.innerHTML =
+  "✅ Notificaciones activadas y teléfono registrado.";
+   /* const API_URL =
+    "https://script.google.com/macros/s/AKfycbxJ-S74WVwbNZbNdrZ8LnvvdhMJGBbvSfkf8wH3BHeSgP5oY8SxG57HlcR3T2AWiM8c_w/exec";
+*/
     mensaje.innerHTML =
       "✅ Notificaciones activadas correctamente.";
 
