@@ -404,7 +404,7 @@ function cambiarPersona() {
 
 }
 
-function activarNotificaciones() {
+async function activarNotificaciones() {
 
   const mensaje =
     document.getElementById("mensaje");
@@ -413,55 +413,62 @@ function activarNotificaciones() {
   if (!("Notification" in window)) {
 
     mensaje.innerHTML =
-      "❌ Este navegador no admite notificaciones.";
+      "❌ Este dispositivo no admite notificaciones web.";
 
     return;
 
   }
 
 
-  Notification.requestPermission()
-    .then(function(permission) {
+  try {
 
-      if (permission === "granted") {
+    const permiso =
+      await Notification.requestPermission();
 
-        mensaje.innerHTML =
-          "✅ Notificaciones activadas.";
 
-        new Notification(
-          "LOCALIZANDO FAMILIA",
-          {
-            body:
-              "Las notificaciones están activadas correctamente."
-          }
-        );
-
-      }
-
-      else if (permission === "denied") {
-
-        mensaje.innerHTML =
-          "❌ Las notificaciones fueron bloqueadas.";
-
-      }
-
-      else {
-
-        mensaje.innerHTML =
-          "⚠️ No se activaron las notificaciones.";
-
-      }
-
-    })
-
-    .catch(function(error) {
-
-      console.error(error);
+    if (permiso !== "granted") {
 
       mensaje.innerHTML =
-        "❌ No se pudieron activar las notificaciones.";
+        "❌ No se pudieron activar las notificaciones.<br>" +
+        "Permiso actual: " +
+        permiso;
 
-    });
+      return;
+
+    }
+
+
+    const registro =
+      await navigator.serviceWorker.ready;
+
+
+    await registro.showNotification(
+      "LOCALIZANDO FAMILIA",
+      {
+        body:
+          "✅ Las notificaciones están activadas correctamente.",
+        icon:
+          "icon-192.png",
+        badge:
+          "icon-192.png"
+      }
+    );
+
+
+    mensaje.innerHTML =
+      "✅ Notificaciones activadas correctamente.";
+
+  }
+
+  catch (error) {
+
+    console.error(error);
+
+    mensaje.innerHTML =
+      "❌ Error al activar las notificaciones:<br>" +
+      error.message;
+
+  }
 
 }
 
