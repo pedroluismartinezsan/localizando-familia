@@ -242,11 +242,21 @@
 
 </div>
 
-
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js"></script>
 
 <script>
 
+firebase.initializeApp({
+  apiKey: "AIzaSyDh-I8sewGb5YvKGjxsdcLooQqz7ybgPi4",
+  authDomain: "localizando-familia.firebaseapp.com",
+  projectId: "localizando-familia",
+  storageBucket: "localizando-familia.firebasestorage.app",
+  messagingSenderId: "1081866124616",
+  appId: "1:1081866124616:web:72a5452cd8f6a4db62077d"
+});
 
+const messaging = firebase.messaging();
 // =====================================
 // URL DE APPS SCRIPT
 // =====================================
@@ -417,18 +427,16 @@ async function activarNotificaciones() {
   const mensaje =
     document.getElementById("mensaje");
 
-
-  if (!("Notification" in window)) {
-
-    mensaje.innerHTML =
-      "❌ Este dispositivo no admite notificaciones web.";
-
-    return;
-
-  }
-
-
   try {
+
+    if (!("Notification" in window)) {
+
+      mensaje.innerHTML =
+        "❌ Este dispositivo no admite notificaciones.";
+
+      return;
+    }
+
 
     const permiso =
       await Notification.requestPermission();
@@ -437,30 +445,40 @@ async function activarNotificaciones() {
     if (permiso !== "granted") {
 
       mensaje.innerHTML =
-        "❌ No se pudieron activar las notificaciones.<br>" +
-        "Permiso actual: " +
-        permiso;
+        "❌ Permiso de notificaciones: " + permiso;
 
       return;
-
     }
 
 
     const registro =
-      await navigator.serviceWorker.ready;
+      await navigator.serviceWorker.register(
+        "./firebase-messaging-sw.js"
+      );
 
 
-    await registro.showNotification(
-      "LOCALIZANDO FAMILIA",
-      {
-        body:
-          "✅ Las notificaciones están activadas correctamente.",
-        icon:
-          "icon-192.png",
-        badge:
-          "icon-192.png"
-      }
-    );
+    const token =
+      await messaging.getToken({
+
+        vapidKey:
+          "BEK4AKZmhOpwX7SnMFoOx9s0etxLNtH5TnoY7iT47pt3HW0MRKzqoKh1BnYjNJK71t6yqkWL0ySWI31o49maflA",
+
+        serviceWorkerRegistration:
+          registro
+
+      });
+
+
+    if (!token) {
+
+      mensaje.innerHTML =
+        "❌ Firebase no pudo obtener el token.";
+
+      return;
+    }
+
+
+    console.log("TOKEN FCM:", token);
 
 
     mensaje.innerHTML =
@@ -470,7 +488,11 @@ async function activarNotificaciones() {
 
   catch (error) {
 
-    console.error(error);
+    console.error(
+      "Error Firebase Messaging:",
+      error
+    );
+
 
     mensaje.innerHTML =
       "❌ Error al activar las notificaciones:<br>" +
