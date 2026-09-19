@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+
+  <meta name="theme-color"
+        content="#ffffff">
+
+  <link rel="manifest"
+        href="manifest.json">
+
+  <title>LOCALIZANDO FAMILIA</title>
+
+
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .contenedor {
+      max-width: 450px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .icono {
+      font-size: 60px;
+    }
+
+    h1 {
+      margin-bottom: 5px;
+    }
+
+    select {
+      width: 100%;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 20px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 15px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .bien {
+      background: #28a745;
+      color: white;
+    }
+
+    .ayuda {
+      background: #dc3545;
+      color: white;
+    }
+
+    .cambiar {
+      background: #6c757d;
+      color: white;
+      font-size: 14px;
+      padding: 12px;
+    }
+
+    #pantallaPrincipal {
+      display: none;
+    }
+
+    #pantallaSeleccion {
+      display: block;
+    }
+
+    #mensaje {
+      margin-top: 25px;
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    .nombre {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 15px 0;
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<div id="pantallaSeleccion">
+
+  <div class="contenedor">
+
+    <div class="icono">
+      👨‍👩‍👧‍👦
+    </div>
+
+    <h1>LOCALIZANDO FAMILIA</h1>
+
+    <p>¿Quién eres?</p>
+
+
+    <select id="persona">
+
+      <option value="">
+        Seleccionar familiar
+      </option>
+
+      <option value="Pedro Luis Martínez Sánchez">
+        Pedro Luis Martínez Sánchez
+      </option>
+
+      <option value="Shelly Alexandra Torres Triviño">
+        Shelly Alexandra Torres Triviño
+      </option>
+
+      <option value="Pedro León Martínez Sánchez">
+        Pedro León Martínez Sánchez
+      </option>
+
+      <option value="Dora Sánchez Joven">
+        Dora Sánchez Joven
+      </option>
+
+      <option value="Lina María Martínez Sánchez">
+        Lina María Martínez Sánchez
+      </option>
+
+      <option value="Angie Natalia Martínez Sánchez">
+        Angie Natalia Martínez Sánchez
+      </option>
+
+    </select>
+
+
+    <button
+      class="bien"
+      onclick="guardarPersona()">
+
+      CONTINUAR
+
+    </button>
+
+  </div>
+
+</div>
+
+
+
+<div id="pantallaPrincipal">
+
+  <div class="contenedor">
+
+    <div class="icono">
+      👨‍👩‍👧‍👦
+    </div>
+
+    <h1>LOCALIZANDO FAMILIA</h1>
+
+    <div class="nombre"
+         id="nombreUsuario">
+    </div>
+
+
+    <p>¿Cómo estás?</p>
+
+
+    <button
+      class="bien"
+      onclick="enviarEstado('ESTOY BIEN', 'NORMAL')">
+
+      🟢 ESTOY BIEN
+
+    </button>
+
+
+    <button
+      class="ayuda"
+      onclick="enviarEstado('NECESITO AYUDA', 'EMERGENCIA')">
+
+      🔴 NECESITO AYUDA
+
+    </button>
+
+
+    <button
+      class="cambiar"
+      onclick="cambiarPersona()">
+
+      Cambiar familiar
+
+    </button>
+
+
+    <div id="mensaje"></div>
+
+  </div>
+
+</div>
+
+
+
+<script>
+
+
+// =====================================
+// URL DE APPS SCRIPT
+// =====================================
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycbxJ-S74WVwbNZbNdrZ8LnvvdhMJGBbvSfkf8wH3BHeSgP5oY8SxG57HlcR3T2AWiM8c_w/exec";
+
+
+
+// =====================================
+// INICIO
+// =====================================
+
+window.onload = function() {
+
+  registrarServiceWorker();
+
+
+  const personaGuardada =
+    localStorage.getItem("familiaPersona");
+
+
+  if (personaGuardada) {
+
+    mostrarPantallaPrincipal(
+      personaGuardada
+    );
+
+  } else {
+
+    mostrarPantallaSeleccion();
+
+  }
+
+};
+
+
+
+// =====================================
+// SERVICE WORKER
+// =====================================
+
+function registrarServiceWorker() {
+
+  if ("serviceWorker" in navigator) {
+
+    navigator.serviceWorker
+      .register("sw.js")
+      .then(function() {
+
+        console.log(
+          "Service Worker registrado"
+        );
+
+      })
+      .catch(function(error) {
+
+        console.error(
+          "Error Service Worker:",
+          error
+        );
+
+      });
+
+  }
+
+}
+
+
+
+// =====================================
+// GUARDAR PERSONA
+// =====================================
+
+function guardarPersona() {
+
+  const persona =
+    document.getElementById("persona").value;
+
+
+  if (!persona) {
+
+    alert(
+      "Selecciona quién eres."
+    );
+
+    return;
+
+  }
+
+
+  localStorage.setItem(
+    "familiaPersona",
+    persona
+  );
+
+
+  mostrarPantallaPrincipal(
+    persona
+  );
+
+}
+
+
+
+// =====================================
+// MOSTRAR PRINCIPAL
+// =====================================
+
+function mostrarPantallaPrincipal(
+  persona
+) {
+
+  document.getElementById(
+    "pantallaSeleccion"
+  ).style.display = "none";
+
+
+  document.getElementById(
+    "pantallaPrincipal"
+  ).style.display = "block";
+
+
+  document.getElementById(
+    "nombreUsuario"
+  ).innerHTML = persona;
+
+}
+
+
+
+// =====================================
+// SELECCIÓN
+// =====================================
+
+function mostrarPantallaSeleccion() {
+
+  document.getElementById(
+    "pantallaSeleccion"
+  ).style.display = "block";
+
+
+  document.getElementById(
+    "pantallaPrincipal"
+  ).style.display = "none";
+
+}
+
+
+
+// =====================================
+// CAMBIAR PERSONA
+// =====================================
+
+function cambiarPersona() {
+
+  localStorage.removeItem(
+    "familiaPersona"
+  );
+
+
+  mostrarPantallaSeleccion();
+
+}
+
+
+
+// =====================================
+// ENVIAR ESTADO
+// =====================================
+
+function enviarEstado(
+  estado,
+  tipo
+) {
+
+  const persona =
+    localStorage.getItem(
+      "familiaPersona"
+    );
+
+
+  const mensaje =
+    document.getElementById(
+      "mensaje"
+    );
+
+
+  if (!persona) {
+
+    mensaje.innerHTML =
+      "⚠️ No hay un familiar seleccionado.";
+
+    return;
+
+  }
+
+
+  mensaje.innerHTML =
+    "📍 Obteniendo ubicación...";
+
+
+  if (!navigator.geolocation) {
+
+    mensaje.innerHTML =
+      "❌ Este dispositivo no permite obtener ubicación.";
+
+    return;
+
+  }
+
+
+  navigator.geolocation.getCurrentPosition(
+
+    function(posicion) {
+
+      mensaje.innerHTML =
+        "📤 Enviando información...";
+
+
+      const datos = {
+
+        persona: persona,
+
+        estado: estado,
+
+        tipo: tipo,
+
+        latitud:
+          posicion.coords.latitude,
+
+        longitud:
+          posicion.coords.longitude,
+
+        precision:
+          posicion.coords.accuracy
+
+      };
+
+
+      fetch(
+        API_URL,
+        {
+
+          method: "POST",
+
+          body:
+            JSON.stringify(datos)
+
+        }
+      )
+
+      .then(function(respuesta) {
+
+        return respuesta.json();
+
+      })
+
+      .then(function(resultado) {
+
+        if (
+          resultado.resultado === "OK"
+        ) {
+
+          mensaje.innerHTML =
+            "✅ Información enviada correctamente.";
+
+        } else {
+
+          mensaje.innerHTML =
+            "❌ No se pudo guardar.";
+
+        }
+
+      })
+
+      .catch(function(error) {
+
+        console.error(error);
+
+        mensaje.innerHTML =
+          "❌ Error de conexión.";
+
+      });
+
+    },
+
+
+    function(error) {
+
+      console.error(error);
+
+      mensaje.innerHTML =
+        "❌ No fue posible obtener tu ubicación.";
+
+    },
+
+
+    {
+
+      enableHighAccuracy: true,
+
+      timeout: 15000,
+
+      maximumAge: 0
+
+    }
+
+  );
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
