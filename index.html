@@ -73,6 +73,13 @@
       background: #dc3545;
       color: white;
     }
+    
+    .notificaciones {
+    background: #007bff;
+    color: white;
+    font-size: 16px;
+    padding: 15px;
+    }
 
     .cambiar {
       background: #6c757d;
@@ -397,7 +404,66 @@ function cambiarPersona() {
 
 }
 
+function activarNotificaciones() {
 
+  const mensaje =
+    document.getElementById("mensaje");
+
+
+  if (!("Notification" in window)) {
+
+    mensaje.innerHTML =
+      "❌ Este navegador no admite notificaciones.";
+
+    return;
+
+  }
+
+
+  Notification.requestPermission()
+    .then(function(permission) {
+
+      if (permission === "granted") {
+
+        mensaje.innerHTML =
+          "✅ Notificaciones activadas.";
+
+        new Notification(
+          "LOCALIZANDO FAMILIA",
+          {
+            body:
+              "Las notificaciones están activadas correctamente."
+          }
+        );
+
+      }
+
+      else if (permission === "denied") {
+
+        mensaje.innerHTML =
+          "❌ Las notificaciones fueron bloqueadas.";
+
+      }
+
+      else {
+
+        mensaje.innerHTML =
+          "⚠️ No se activaron las notificaciones.";
+
+      }
+
+    })
+
+    .catch(function(error) {
+
+      console.error(error);
+
+      mensaje.innerHTML =
+        "❌ No se pudieron activar las notificaciones.";
+
+    });
+
+}
 
 // =====================================
 // ENVIAR ESTADO
