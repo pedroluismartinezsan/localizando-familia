@@ -1,15 +1,52 @@
+importScripts(
+  "https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"
+);
+
+importScripts(
+  "https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js"
+);
+
+
+// ===============================
+// FIREBASE
+// ===============================
+
+firebase.initializeApp({
+  apiKey: "AIzaSyDh-I8sewGb5YvKGjxsdcLooQqz7ybgPi4",
+  authDomain: "localizando-familia.firebaseapp.com",
+  projectId: "localizando-familia",
+  storageBucket: "localizando-familia.firebasestorage.app",
+  messagingSenderId: "1081866124616",
+  appId: "1:1081866124616:web:72a5452cd8f6a4db62077d"
+});
+
+const messaging = firebase.messaging();
+
+
+// ===============================
+// INSTALACIÓN
+// ===============================
+
 self.addEventListener("install", function(event) {
 
-  console.log("LOCALIZANDO FAMILIA - Service Worker instalado");
+  console.log(
+    "LOCALIZANDO FAMILIA - Service Worker instalado"
+  );
 
   self.skipWaiting();
 
 });
 
 
+// ===============================
+// ACTIVACIÓN
+// ===============================
+
 self.addEventListener("activate", function(event) {
 
-  console.log("LOCALIZANDO FAMILIA - Service Worker activo");
+  console.log(
+    "LOCALIZANDO FAMILIA - Service Worker activo"
+  );
 
   event.waitUntil(
     self.clients.claim()
@@ -18,54 +55,64 @@ self.addEventListener("activate", function(event) {
 });
 
 
-self.addEventListener("push", function(event) {
+// ===============================
+// NOTIFICACIONES FIREBASE
+// ===============================
 
-  let datos = {
-    titulo: "LOCALIZANDO FAMILIA",
-    mensaje: "¿TU FAMILIA QUIERE SABER SI ESTÁS BIEN?"
-  };
+messaging.onBackgroundMessage(function(payload) {
+
+  console.log(
+    "FCM recibido:",
+    payload
+  );
 
 
-  if (event.data) {
+  const titulo =
+    payload.data &&
+    payload.data.title
+      ? payload.data.title
+      : "LOCALIZANDO FAMILIA";
 
-    try {
 
-      datos = event.data.json();
+  const mensaje =
+    payload.data &&
+    payload.data.body
+      ? payload.data.body
+      : "¿TU FAMILIA QUIERE SABER SI ESTÁS BIEN?";
 
-    } catch (error) {
 
-      datos.mensaje =
-        event.data.text();
+  self.registration.showNotification(
+    titulo,
+    {
+      body: mensaje,
+
+      icon:
+        "/localizando-familia/icon-192.png",
+
+      badge:
+        "/localizando-familia/icon-192.png",
+
+      vibrate: [200, 100, 200],
+
+      tag:
+        "localizando-familia",
+
+      renotify: true,
+
+      data: {
+        url:
+          "https://pedroluismartinezsan.github.io/localizando-familia/"
+      }
 
     }
-
-  }
-
-
-  event.waitUntil(
-
-    self.registration.showNotification(
-      datos.titulo,
-      {
-        body: datos.mensaje,
-
-        icon: "icon-192.png",
-
-        badge: "icon-192.png",
-
-        vibrate: [200, 100, 200],
-
-        data: {
-          url:
-            "https://pedroluismartinezsan.github.io/localizando-familia/"
-        }
-      }
-    )
-
   );
 
 });
 
+
+// ===============================
+// CLIC EN NOTIFICACIÓN
+// ===============================
 
 self.addEventListener(
   "notificationclick",
