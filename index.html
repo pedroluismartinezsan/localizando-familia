@@ -10,6 +10,15 @@
 
   <meta name="theme-color" content="#1976d2">
 
+  <link rel="manifest"
+        href="/localizando-familia/manifest.json">
+
+  <meta name="mobile-web-app-capable"
+        content="yes">
+
+  <meta name="apple-mobile-web-app-capable"
+        content="yes">
+
   <title>LOCALIZANDO FAMILIA</title>
 
 
@@ -21,191 +30,121 @@
 
 
     body {
-
       font-family: Arial, sans-serif;
-
       background: #f4f6f8;
-
       margin: 0;
-
       padding: 15px;
-
       color: #222;
-
     }
 
 
     .contenedor {
-
       max-width: 500px;
-
       margin: 0 auto;
-
       background: white;
-
       padding: 22px;
-
       border-radius: 22px;
-
       box-shadow:
         0 4px 18px rgba(0,0,0,0.10);
-
     }
 
 
     .icono {
-
       font-size: 55px;
-
       text-align: center;
-
       margin-bottom: 5px;
-
     }
 
 
     h1 {
-
       text-align: center;
-
       font-size: 25px;
-
       margin: 5px 0 10px;
-
     }
 
 
     h2 {
-
       margin: 0;
-
     }
 
 
     p {
-
       text-align: center;
-
     }
 
 
     select {
-
       width: 100%;
-
       padding: 15px;
-
       margin: 15px 0;
-
       border-radius: 12px;
-
       border: 1px solid #ccc;
-
       font-size: 16px;
-
       background: white;
-
     }
 
 
     button {
-
       width: 100%;
-
       padding: 17px;
-
       margin-top: 12px;
-
       border: none;
-
       border-radius: 15px;
-
       font-size: 18px;
-
       font-weight: bold;
-
       cursor: pointer;
-
     }
 
 
     button:active {
-
       transform: scale(0.98);
-
     }
 
 
     .bien {
-
       background: #28a745;
-
       color: white;
-
     }
 
 
     .ayuda {
-
       background: #dc3545;
-
       color: white;
-
     }
 
 
     .cambiar {
-
       background: #6c757d;
-
       color: white;
-
       font-size: 14px;
-
       padding: 12px;
-
     }
 
 
     #pantallaPrincipal {
-
       display: none;
-
     }
 
 
     #pantallaSeleccion {
-
       display: block;
-
     }
 
 
     .nombre {
-
       text-align: center;
-
       font-size: 19px;
-
       font-weight: bold;
-
       margin: 15px 0;
-
     }
 
 
     #mensaje {
-
       margin-top: 20px;
-
       text-align: center;
-
       font-size: 16px;
-
       font-weight: bold;
-
       min-height: 25px;
-
     }
 
 
@@ -216,64 +155,42 @@
 
 
     #panelFamilia {
-
       margin-top: 28px;
-
       padding-top: 25px;
-
       border-top: 1px solid #ddd;
-
     }
 
 
     #panelFamilia h2 {
-
       text-align: center;
-
       font-size: 22px;
-
       margin-bottom: 5px;
-
     }
 
 
     #fechaPanel {
-
       text-align: center;
-
       color: #666;
-
       font-size: 14px;
-
       margin-bottom: 15px;
-
     }
 
 
     #panelFamilia > button {
-
       background: #222;
-
       color: white;
-
       font-size: 15px;
-
       padding: 13px;
-
       margin-bottom: 15px;
-
     }
 
 
     #listaFamilia {
-
       display: flex;
-
       flex-direction: column;
-
       gap: 12px;
-
     }
+
 
 
     /* ==================================
@@ -282,79 +199,53 @@
 
 
     .familiar {
-
       background: white;
-
       border: 1px solid #e5e5e5;
-
       border-radius: 17px;
-
       padding: 16px;
-
       box-shadow:
         0 3px 12px rgba(0,0,0,0.08);
-
       display: flex;
-
       flex-direction: column;
-
       gap: 7px;
-
     }
 
 
     .familiar strong {
-
       font-size: 17px;
-
       color: #222;
-
     }
 
 
     .estadoRegistro {
-
       font-size: 15px;
-
       font-weight: bold;
-
     }
 
 
     .horaRegistro {
-
       color: #555;
-
       font-size: 14px;
-
     }
 
 
     .precisionRegistro {
-
       color: #777;
-
       font-size: 12px;
-
     }
 
 
     .familiar.sin-registro {
-
       background: #f5f5f5;
-
       border-left: 5px solid #999;
-
     }
 
 
     .familiar.sin-registro span {
-
       color: #777;
-
       font-size: 14px;
-
     }
+
 
 
     /* ==================================
@@ -363,37 +254,24 @@
 
 
     .botonMapa {
-
       display: block;
-
       width: 100%;
-
       margin-top: 5px;
-
       padding: 12px;
-
       text-align: center;
-
       text-decoration: none;
-
       border-radius: 12px;
-
       background: #1976d2;
-
       color: white;
-
       font-size: 15px;
-
       font-weight: bold;
-
     }
 
 
     .botonMapa:active {
-
       transform: scale(0.97);
-
     }
+
 
 
     /* ==================================
@@ -402,29 +280,20 @@
 
 
     .cargando {
-
       text-align: center;
-
       padding: 20px;
-
       color: #666;
-
     }
 
 
     .error {
-
       text-align: center;
-
       padding: 15px;
-
       color: #c62828;
-
       background: #ffebee;
-
       border-radius: 12px;
-
     }
+
 
 
     /* ==================================
@@ -433,59 +302,40 @@
 
 
     #resumenFamilia {
-
       display: grid;
-
       grid-template-columns:
         repeat(3, 1fr);
-
       gap: 7px;
-
       margin-bottom: 15px;
-
     }
 
 
     .resumen {
-
       text-align: center;
-
       padding: 10px 5px;
-
       border-radius: 12px;
-
       font-size: 12px;
-
       font-weight: bold;
-
     }
 
 
     .resumenBien {
-
       background: #e8f5e9;
-
       color: #2e7d32;
-
     }
 
 
     .resumenAyuda {
-
       background: #ffebee;
-
       color: #c62828;
-
     }
 
 
     .resumenSin {
-
       background: #eeeeee;
-
       color: #666;
-
     }
+
 
 
     /* ==================================
@@ -496,49 +346,37 @@
     @media (max-width: 600px) {
 
       body {
-
         padding: 8px;
-
       }
 
 
       .contenedor {
-
         padding: 17px;
-
         border-radius: 18px;
-
       }
 
 
       h1 {
-
         font-size: 22px;
-
       }
 
 
       .icono {
-
         font-size: 48px;
-
       }
 
 
       .familiar {
-
         padding: 15px;
-
       }
 
 
       .botonMapa {
-
         padding: 14px;
-
       }
 
     }
+
 
 
     /* ==================================
@@ -549,190 +387,133 @@
     @media (prefers-color-scheme: dark) {
 
       body {
-
         background: #121212;
-
         color: white;
-
       }
 
 
       .contenedor {
-
         background: #1e1e1e;
-
       }
 
 
       select {
-
         background: #292929;
-
         color: white;
-
         border-color: #444;
-
       }
 
 
       .familiar {
-
         background: #242424;
-
         border-color: #444;
-
       }
 
 
       .familiar strong {
-
         color: white;
-
       }
 
 
       .horaRegistro {
-
         color: #ccc;
-
       }
 
 
       .precisionRegistro {
-
         color: #aaa;
-
       }
 
 
       #fechaPanel {
-
         color: #aaa;
-
       }
 
 
       #panelFamilia {
-
         border-top-color: #444;
-
       }
 
 
       .familiar.sin-registro {
-
         background: #292929;
-
       }
 
 
       .resumenBien {
-
         background: #17351b;
-
         color: #81c784;
-
       }
 
 
       .resumenAyuda {
-
         background: #3b1717;
-
         color: #ef9a9a;
-
       }
 
 
       .resumenSin {
-
         background: #303030;
-
         color: #bbb;
-
       }
 
     }
-/* ==================================
-   NOTIFICACIONES
-================================== */
-
-#notificacionesPanel {
-
-  margin-top: 18px;
-
-  padding: 15px;
-
-  border-radius: 16px;
-
-  background: #f1f8ff;
-
-  border: 1px solid #cfe5ff;
-
-}
 
 
-#notificacionesPanel h3 {
+    /* ==================================
+       NOTIFICACIONES
+    ================================== */
 
-  margin: 0 0 5px;
-
-  font-size: 18px;
-
-}
-
-
-#estadoNotificaciones {
-
-  margin: 5px 0 12px;
-
-  font-size: 14px;
-
-  color: #555;
-
-}
+    #notificacionesPanel {
+      margin-top: 18px;
+      padding: 15px;
+      border-radius: 16px;
+      background: #f1f8ff;
+      border: 1px solid #cfe5ff;
+    }
 
 
-.botonNotificaciones {
-
-  background: #1976d2;
-
-  color: white;
-
-  font-size: 15px;
-
-  padding: 14px;
-
-  margin-top: 5px;
-
-}
+    #notificacionesPanel h3 {
+      margin: 0 0 5px;
+      font-size: 18px;
+    }
 
 
-.botonNotificaciones.activadas {
+    #estadoNotificaciones {
+      margin: 5px 0 12px;
+      font-size: 14px;
+      color: #555;
+    }
 
-  background: #28a745;
 
-}
+    .botonNotificaciones {
+      background: #1976d2;
+      color: white;
+      font-size: 15px;
+      padding: 14px;
+      margin-top: 5px;
+    }
 
 
-/* Modo oscuro */
+    .botonNotificaciones.activadas {
+      background: #28a745;
+    }
 
-@media (prefers-color-scheme: dark) {
 
-  #notificacionesPanel {
+    @media (prefers-color-scheme: dark) {
 
-    background: #172535;
+      #notificacionesPanel {
+        background: #172535;
+        border-color: #285477;
+      }
 
-    border-color: #285477;
 
-  }
+      #estadoNotificaciones {
+        color: #ccc;
+      }
 
-  #estadoNotificaciones {
+    }
 
-    color: #ccc;
-
-  }
-
-}
   </style>
 
 </head>
@@ -862,24 +643,27 @@
       class="nombre"
       id="nombreUsuario">
     </div>
-<div id="notificacionesPanel">
 
-  <h3>🔔 Notificaciones</h3>
 
-  <p id="estadoNotificaciones">
-    Comprobando notificaciones...
-  </p>
+    <div id="notificacionesPanel">
 
-  <button
-    id="botonNotificaciones"
-    class="botonNotificaciones"
-    onclick="activarNotificaciones()">
+      <h3>🔔 Notificaciones</h3>
 
-    🔔 ACTIVAR NOTIFICACIONES
+      <p id="estadoNotificaciones">
+        Comprobando notificaciones...
+      </p>
 
-  </button>
+      <button
+        id="botonNotificaciones"
+        class="botonNotificaciones"
+        onclick="activarNotificaciones()">
 
-</div>
+        🔔 ACTIVAR NOTIFICACIONES
+
+      </button>
+
+    </div>
+
 
     <p>
       ¿Cómo estás?
@@ -992,11 +776,13 @@
 
 <!-- =====================================
      JAVASCRIPT
-====================================== -->
+===================================== -->
 
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js"></script>
+
+
 <script>
 
 
@@ -1008,9 +794,11 @@
 const API_URL =
   "https://script.google.com/macros/s/AKfycbxJ-S74WVwbNZbNdrZ8LnvvdhMJGBbvSfkf8wH3BHeSgP5oY8SxG57HlcR3T2AWiM8c_w/exec";
 
+
 /* =====================================
    FIREBASE
 ===================================== */
+
 
 const firebaseConfig = {
 
@@ -1042,6 +830,7 @@ firebase.initializeApp(
 
 const messaging =
   firebase.messaging();
+
 
 /* =====================================
    FAMILIARES
@@ -1102,7 +891,14 @@ window.onload = function() {
   }
 
 };
-  
+
+
+
+/* =====================================
+   ACTIVAR NOTIFICACIONES
+===================================== */
+
+
 async function activarNotificaciones() {
 
   const estado =
@@ -1203,7 +999,7 @@ async function activarNotificaciones() {
             JSON.stringify({
 
               accion:
-                 "registrarDispositivo",
+                "registrarDispositivo",
 
               persona:
                 persona,
@@ -1259,6 +1055,14 @@ async function activarNotificaciones() {
   }
 
 }
+
+
+
+/* =====================================
+   COMPROBAR NOTIFICACIONES
+===================================== */
+
+
 async function comprobarNotificaciones() {
 
   const estado =
@@ -1307,6 +1111,8 @@ async function comprobarNotificaciones() {
   }
 
 }
+
+
 
 /* =====================================
    GUARDAR PERSONA
