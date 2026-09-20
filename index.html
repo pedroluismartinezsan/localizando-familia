@@ -653,7 +653,86 @@
       }
 
     }
+/* ==================================
+   NOTIFICACIONES
+================================== */
 
+#notificacionesPanel {
+
+  margin-top: 18px;
+
+  padding: 15px;
+
+  border-radius: 16px;
+
+  background: #f1f8ff;
+
+  border: 1px solid #cfe5ff;
+
+}
+
+
+#notificacionesPanel h3 {
+
+  margin: 0 0 5px;
+
+  font-size: 18px;
+
+}
+
+
+#estadoNotificaciones {
+
+  margin: 5px 0 12px;
+
+  font-size: 14px;
+
+  color: #555;
+
+}
+
+
+.botonNotificaciones {
+
+  background: #1976d2;
+
+  color: white;
+
+  font-size: 15px;
+
+  padding: 14px;
+
+  margin-top: 5px;
+
+}
+
+
+.botonNotificaciones.activadas {
+
+  background: #28a745;
+
+}
+
+
+/* Modo oscuro */
+
+@media (prefers-color-scheme: dark) {
+
+  #notificacionesPanel {
+
+    background: #172535;
+
+    border-color: #285477;
+
+  }
+
+  #estadoNotificaciones {
+
+    color: #ccc;
+
+  }
+
+}
   </style>
 
 </head>
@@ -915,7 +994,9 @@
      JAVASCRIPT
 ====================================== -->
 
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js"></script>
 <script>
 
 
@@ -927,7 +1008,40 @@
 const API_URL =
   "https://script.google.com/macros/s/AKfycbxJ-S74WVwbNZbNdrZ8LnvvdhMJGBbvSfkf8wH3BHeSgP5oY8SxG57HlcR3T2AWiM8c_w/exec";
 
+/* =====================================
+   FIREBASE
+===================================== */
 
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyDh-I8sewGb5YvKGjxsdcLooQqz7ybgPi4",
+
+  authDomain:
+    "localizando-familia.firebaseapp.com",
+
+  projectId:
+    "localizando-familia",
+
+  storageBucket:
+    "localizando-familia.firebasestorage.app",
+
+  messagingSenderId:
+    "1081866124616",
+
+  appId:
+    "1:1081866124616:web:72a5452cd8f6a4db62077d"
+
+};
+
+
+firebase.initializeApp(
+  firebaseConfig
+);
+
+
+const messaging =
+  firebase.messaging();
 
 /* =====================================
    FAMILIARES
@@ -986,7 +1100,162 @@ window.onload = function() {
   }
 
 };
+async function activarNotificaciones() {
 
+  const estado =
+    document.getElementById(
+      "estadoNotificaciones"
+    );
+
+  const boton =
+    document.getElementById(
+      "botonNotificaciones"
+    );
+
+
+  try {
+
+    if (
+      !("Notification" in window)
+    ) {
+
+      estado.textContent =
+        "❌ Este dispositivo no permite notificaciones.";
+
+      return;
+
+    }
+
+
+    estado.textContent =
+      "⏳ Solicitando permiso...";
+
+
+    const permiso =
+      await Notification.requestPermission();
+
+
+    if (permiso !== "granted") {
+
+      estado.textContent =
+        "❌ Las notificaciones no fueron permitidas.";
+
+      return;
+
+    }
+
+
+    estado.textContent =
+      "⏳ Registrando dispositivo...";
+
+
+    const registro =
+      await navigator.serviceWorker.register(
+        "./firebase-messaging-sw.js"
+      );
+
+
+    const token =
+      await messaging.getToken({
+
+        serviceWorkerRegistration:
+          registro,
+
+        vapidKey:
+          "BEK4AKZmhOpwX7SnMFoOx9s0etxLNtH5TnoY7iT47pt3HW0MRKzqoKh1BnYjNJK71t6yqkWL0ySWI31o49maflA"
+
+      });
+
+
+    if (!token) {
+
+      throw new Error(
+        "Firebase no devolvió un token."
+      );
+
+    }
+
+
+    const persona =
+      localStorage.getItem(
+        "familiaPersona"
+      );
+
+
+    const respuesta =
+      await fetch(
+        API_URL,
+        {
+
+          method: "POST",
+
+          headers: {
+
+            "Content-Type":
+              "text/plain;charset=utf-8"
+
+          },
+
+          body:
+            JSON.stringify({
+
+              accion:
+                "guardarDispositivo",
+
+              persona:
+                persona,
+
+              token:
+                token
+
+            })
+
+        }
+      );
+
+
+    const resultado =
+      await respuesta.json();
+
+
+    if (
+      resultado.resultado !== "OK"
+    ) {
+
+      throw new Error(
+        "No se pudo guardar el dispositivo."
+      );
+
+    }
+
+
+    estado.textContent =
+      "✅ Notificaciones activadas correctamente.";
+
+
+    boton.textContent =
+      "✅ NOTIFICACIONES ACTIVADAS";
+
+
+    boton.classList.add(
+      "activadas"
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "Error notificacaciones:",
+      error
+    );
+
+
+    estado.textContent =
+      "❌ No se pudieron activar las notificaciones.";
+
+  }
+
+}
 
 
 /* =====================================
