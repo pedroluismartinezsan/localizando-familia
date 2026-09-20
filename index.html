@@ -1093,6 +1093,8 @@ window.onload = function() {
       personaGuardada
     );
 
+    comprobarNotificaciones();
+
   } else {
 
     mostrarPantallaSeleccion();
@@ -1100,6 +1102,7 @@ window.onload = function() {
   }
 
 };
+  
 async function activarNotificaciones() {
 
   const estado =
@@ -1256,7 +1259,54 @@ async function activarNotificaciones() {
   }
 
 }
+async function comprobarNotificaciones() {
 
+  const estado =
+    document.getElementById(
+      "estadoNotificaciones"
+    );
+
+  const boton =
+    document.getElementById(
+      "botonNotificaciones"
+    );
+
+
+  if (
+    !("Notification" in window)
+  ) {
+
+    estado.textContent =
+      "❌ Este dispositivo no permite notificaciones.";
+
+    return;
+
+  }
+
+
+  if (
+    Notification.permission ===
+    "granted"
+  ) {
+
+    estado.textContent =
+      "✅ Las notificaciones están permitidas.";
+
+    boton.textContent =
+      "✅ NOTIFICACIONES ACTIVADAS";
+
+    boton.classList.add(
+      "activadas"
+    );
+
+  } else {
+
+    estado.textContent =
+      "Las notificaciones todavía no están activadas.";
+
+  }
+
+}
 
 /* =====================================
    GUARDAR PERSONA
