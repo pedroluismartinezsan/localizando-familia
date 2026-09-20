@@ -1,21 +1,14 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 
 <head>
 
-  <meta charset="UTF-8">
+  <base target="_top">
 
   <meta name="viewport"
         content="width=device-width, initial-scale=1">
 
-  <meta name="theme-color"
-        content="#ffffff">
-
-  <link rel="manifest"
-        href="manifest.json">
-
   <title>LOCALIZANDO FAMILIA</title>
-
 
   <style>
 
@@ -73,13 +66,6 @@
       background: #dc3545;
       color: white;
     }
-    
-    .notificaciones {
-    background: #007bff;
-    color: white;
-    font-size: 16px;
-    padding: 15px;
-    }
 
     .cambiar {
       background: #6c757d;
@@ -108,6 +94,260 @@
       margin: 15px 0;
     }
 
+    /* ================================
+   PANEL FAMILIA
+================================ */
+
+#panelFamilia {
+  margin: 20px auto;
+  max-width: 600px;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+
+/* Título */
+
+#panelFamilia h2 {
+  margin: 0 0 6px 0;
+  font-size: 24px;
+  text-align: center;
+}
+
+#fechaPanel {
+  text-align: center;
+  margin: 0 0 18px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+
+/* Botón actualizar */
+
+#panelFamilia > button {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 18px;
+
+  border: none;
+  border-radius: 14px;
+
+  background: #222;
+  color: white;
+
+  font-size: 16px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+#panelFamilia > button:active {
+  transform: scale(0.98);
+}
+
+
+/* ================================
+   TARJETAS DE FAMILIA
+================================ */
+
+#listaFamilia {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+
+.familiar {
+  background: white;
+
+  border-radius: 18px;
+
+  padding: 18px;
+
+  box-shadow:
+    0 3px 12px rgba(0, 0, 0, 0.10);
+
+  border: 1px solid #eeeeee;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  transition: transform 0.15s;
+}
+
+
+.familiar:active {
+  transform: scale(0.98);
+}
+
+
+/* Nombre */
+
+.familiar strong {
+  font-size: 18px;
+  color: #222;
+}
+
+
+/* Información */
+
+.familiar div {
+  font-size: 14px;
+  color: #555;
+}
+
+
+/* ================================
+   ESTADO SIN REGISTRO
+================================ */
+
+.familiar.sin-registro {
+  background: #f5f5f5;
+  border-left: 6px solid #999;
+}
+
+.familiar.sin-registro span {
+  color: #777;
+  font-size: 14px;
+}
+
+
+/* ================================
+   BOTÓN UBICACIÓN
+================================ */
+
+.botonMapa {
+  display: block;
+
+  margin-top: 6px;
+
+  padding: 12px;
+
+  text-align: center;
+
+  text-decoration: none;
+
+  border-radius: 12px;
+
+  background: #1976d2;
+
+  color: white;
+
+  font-size: 15px;
+
+  font-weight: bold;
+}
+
+
+.botonMapa:active {
+  transform: scale(0.97);
+}
+
+
+/* ================================
+   ESTADOS
+================================ */
+
+.familiar:has(div:nth-child(2)) {
+  position: relative;
+}
+
+
+/* ================================
+   MÓVIL
+================================ */
+
+@media (max-width: 600px) {
+
+  #panelFamilia {
+
+    margin: 10px auto;
+
+    padding: 14px;
+
+    width: calc(100% - 28px);
+
+  }
+
+
+  #panelFamilia h2 {
+    font-size: 22px;
+  }
+
+
+  .familiar {
+
+    padding: 16px;
+
+    border-radius: 16px;
+
+  }
+
+
+  .familiar strong {
+
+    font-size: 17px;
+
+  }
+
+
+  .botonMapa {
+
+    padding: 14px;
+
+    font-size: 16px;
+
+  }
+
+}
+
+
+/* ================================
+   MODO OSCURO
+================================ */
+
+@media (prefers-color-scheme: dark) {
+
+  #panelFamilia {
+    color: #ffffff;
+  }
+
+  #panelFamilia h2 {
+    color: #ffffff;
+  }
+
+  #fechaPanel {
+    color: #bbbbbb;
+  }
+
+  .familiar {
+    background: #1e1e1e;
+    border-color: #333333;
+    box-shadow:
+      0 3px 12px rgba(0, 0, 0, 0.35);
+  }
+
+  .familiar strong {
+    color: #ffffff;
+  }
+
+  .familiar div {
+    color: #cccccc;
+  }
+
+  .familiar.sin-registro {
+    background: #292929;
+  }
+
+  .familiar.sin-registro span {
+    color: #aaaaaa;
+  }
+
+}
+
   </style>
 
 </head>
@@ -115,6 +355,10 @@
 
 <body>
 
+
+<!-- ================================= -->
+<!-- PANTALLA PARA SELECCIONAR PERSONA -->
+<!-- ================================= -->
 
 <div id="pantallaSeleccion">
 
@@ -127,7 +371,9 @@
     <h1>LOCALIZANDO FAMILIA</h1>
    
 
-    <p>¿Quién eres?</p>
+    <p>
+      ¿Quién eres?
+    </p>
 
 
     <select id="persona">
@@ -159,22 +405,22 @@
       <option value="Angie Natalia Martínez Sánchez">
         Angie Natalia Martínez Sánchez
       </option>
-      
-       <option value="Nini Yohanna Rincón">
+
+      <option value="Nini Yohanna Rincón">
         Nini Yohanna Rincón
-        </option>
-      
-       <option value="Juan Gonzalo">
+      </option>
+
+      <option value="Juan Gonzalo">
         Juan Gonzalo
-        </option>
+      </option>
 
-       <option value="Juan Sebastian Rivera">
+      <option value="Juan Sebastian Rivera">
         Juan Sebastian Rivera
-        </option>
+      </option>
 
-       <option value="Kevin Pacheco">
+      <option value="Kevin Pacheco">
         Kevin Pacheco
-        </option>
+      </option>
       
     </select>
 
@@ -193,6 +439,10 @@
 
 
 
+<!-- ================================ -->
+<!-- PANTALLA PRINCIPAL -->
+<!-- ================================ -->
+
 <div id="pantallaPrincipal">
 
   <div class="contenedor">
@@ -208,7 +458,9 @@
     </div>
 
 
-    <p>¿Cómo estás?</p>
+    <p>
+      ¿Cómo estás?
+    </p>
 
 
     <button
@@ -228,14 +480,7 @@
 
     </button>
 
-    <button
-      class="notificaciones"
-      onclick="activarNotificaciones()">
-    
-      🔔 ACTIVAR NOTIFICACIONES
-    
-    </button>
-    
+
     <button
       class="cambiar"
       onclick="cambiarPersona()">
@@ -243,7 +488,21 @@
       Cambiar familiar
 
     </button>
+<section id="panelFamilia">
 
+  <h2>Estado de mi familia hoy</h2>
+
+  <p id="fechaPanel"></p>
+
+  <button onclick="cargarRegistros()">
+    🔄 Ver Estados
+  </button>
+
+  <div id="listaFamilia">
+    Cargando...
+  </div>
+
+</section>
 
     <div id="mensaje"></div>
 
@@ -251,38 +510,17 @@
 
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js"></script>
+
 
 <script>
-
-firebase.initializeApp({
-  apiKey: "AIzaSyDh-I8sewGb5YvKGjxsdcLooQqz7ybgPi4",
-  authDomain: "localizando-familia.firebaseapp.com",
-  projectId: "localizando-familia",
-  storageBucket: "localizando-familia.firebasestorage.app",
-  messagingSenderId: "1081866124616",
-  appId: "1:1081866124616:web:72a5452cd8f6a4db62077d"
-});
-
-const messaging = firebase.messaging();
-// =====================================
-// URL DE APPS SCRIPT
-// =====================================
-//CONECTAR 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbxJ-S74WVwbNZbNdrZ8LnvvdhMJGBbvSfkf8wH3BHeSgP5oY8SxG57HlcR3T2AWiM8c_w/exec";
-
-
+  "https://script.google.com/macros/s/AKfycbxJ-S74WVwbNZbNdrZ8LnvvdhMJGBbvSfkf8wH3BHeSgP5oY8SxG57HlcR3T2AWiM8c_w/exec";
 
 // =====================================
-// INICIO
+// AL ABRIR LA APLICACIÓN
 // =====================================
 
 window.onload = function() {
-
-  registrarServiceWorker();
-
 
   const personaGuardada =
     localStorage.getItem("familiaPersona");
@@ -290,9 +528,7 @@ window.onload = function() {
 
   if (personaGuardada) {
 
-    mostrarPantallaPrincipal(
-      personaGuardada
-    );
+    mostrarPantallaPrincipal(personaGuardada);
 
   } else {
 
@@ -301,38 +537,6 @@ window.onload = function() {
   }
 
 };
-
-
-
-// =====================================
-// SERVICE WORKER
-// =====================================
-
-function registrarServiceWorker() {
-
-  if ("serviceWorker" in navigator) {
-
-    navigator.serviceWorker
-      .register("sw.js")
-      .then(function() {
-
-        console.log(
-          "Service Worker registrado"
-        );
-
-      })
-      .catch(function(error) {
-
-        console.error(
-          "Error Service Worker:",
-          error
-        );
-
-      });
-
-  }
-
-}
 
 
 
@@ -348,9 +552,7 @@ function guardarPersona() {
 
   if (!persona) {
 
-    alert(
-      "Selecciona quién eres."
-    );
+    alert("Selecciona quién eres.");
 
     return;
 
@@ -363,9 +565,7 @@ function guardarPersona() {
   );
 
 
-  mostrarPantallaPrincipal(
-    persona
-  );
+  mostrarPantallaPrincipal(persona);
 
 }
 
@@ -375,9 +575,7 @@ function guardarPersona() {
 // MOSTRAR PRINCIPAL
 // =====================================
 
-function mostrarPantallaPrincipal(
-  persona
-) {
+function mostrarPantallaPrincipal(persona) {
 
   document.getElementById(
     "pantallaSeleccion"
@@ -398,7 +596,7 @@ function mostrarPantallaPrincipal(
 
 
 // =====================================
-// SELECCIÓN
+// MOSTRAR SELECCIÓN
 // =====================================
 
 function mostrarPantallaSeleccion() {
@@ -431,128 +629,20 @@ function cambiarPersona() {
 
 }
 
-async function activarNotificaciones() {
 
-  const mensaje =
-    document.getElementById("mensaje");
-
-  try {
-
-    if (!("Notification" in window)) {
-
-      mensaje.innerHTML =
-        "❌ Este dispositivo no admite notificaciones.";
-
-      return;
-    }
-
-
-    const permiso =
-      await Notification.requestPermission();
-
-
-    if (permiso !== "granted") {
-
-      mensaje.innerHTML =
-        "❌ Permiso de notificaciones: " + permiso;
-
-      return;
-    }
-
-
-    const registro =
-  await navigator.serviceWorker.register(
-    "./sw.js"
-  );
-
-
-    const token =
-      await messaging.getToken({
-
-        vapidKey:
-          "BEK4AKZmhOpwX7SnMFoOx9s0etxLNtH5TnoY7iT47pt3HW0MRKzqoKh1BnYjNJK71t6yqkWL0ySWI31o49maflA",
-
-        serviceWorkerRegistration:
-          registro
-
-      });
-
-
-    if (!token) {
-
-      mensaje.innerHTML =
-        "❌ Firebase no pudo obtener el token.";
-
-      return;
-    }
-
-
-    console.log("TOKEN FCM:", token);
-    const persona = document.getElementById("persona").value;
-
-if (!persona) {
-  mensaje.innerHTML =
-    "⚠️ Primero selecciona tu nombre.";
-  return;
-}
-
-await fetch(API_URL, {
-  method: "POST",
-  headers: {
-    "Content-Type": "text/plain;charset=utf-8"
-  },
-  body: JSON.stringify({
-    accion: "registrarDispositivo",
-    persona: persona,
-    token: token
-  })
-});
-
-mensaje.innerHTML =
-  "✅ Notificaciones activadas y teléfono registrado.";
-   /* const API_URL =
-    "https://script.google.com/macros/s/AKfycbxJ-S74WVwbNZbNdrZ8LnvvdhMJGBbvSfkf8wH3BHeSgP5oY8SxG57HlcR3T2AWiM8c_w/exec";
-*/
-    mensaje.innerHTML =
-      "✅ Notificaciones activadas correctamente.";
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "Error Firebase Messaging:",
-      error
-    );
-
-
-    mensaje.innerHTML =
-      "❌ Error al activar las notificaciones:<br>" +
-      error.message;
-
-  }
-
-}
 
 // =====================================
 // ENVIAR ESTADO
 // =====================================
 
-function enviarEstado(
-  estado,
-  tipo
-) {
+function enviarEstado(estado, tipo) {
 
   const persona =
-    localStorage.getItem(
-      "familiaPersona"
-    );
+    localStorage.getItem("familiaPersona");
 
 
   const mensaje =
-    document.getElementById(
-      "mensaje"
-    );
+    document.getElementById("mensaje");
 
 
   if (!persona) {
@@ -607,50 +697,43 @@ function enviarEstado(
       };
 
 
-      fetch(
-        API_URL,
-        {
+      google.script.run
 
-          method: "POST",
+        .withSuccessHandler(
+          function(resultado) {
 
-          body:
-            JSON.stringify(datos)
+            if (
+              resultado.resultado === "OK"
+            ) {
 
-        }
-      )
+              mensaje.innerHTML =
+                "✅ Información enviada correctamente.";
 
-      .then(function(respuesta) {
+            } else {
 
-        return respuesta.json();
+              mensaje.innerHTML =
+                "❌ No se pudo guardar.";
 
-      })
+            }
 
-      .then(function(resultado) {
+          }
+        )
 
-        if (
-          resultado.resultado === "OK"
-        ) {
 
-          mensaje.innerHTML =
-            "✅ Información enviada correctamente.";
+        .withFailureHandler(
+          function(error) {
 
-        } else {
+            console.error(error);
 
-          mensaje.innerHTML =
-            "❌ No se pudo guardar.";
+            mensaje.innerHTML =
+              "❌ Error:<br>" +
+              (error.message || error);
 
-        }
+          }
+        )
 
-      })
 
-      .catch(function(error) {
-
-        console.error(error);
-
-        mensaje.innerHTML =
-          "❌ Error de conexión.";
-
-      });
+        .guardarRegistro(datos);
 
     },
 
@@ -678,13 +761,210 @@ function enviarEstado(
   );
 
 }
+async function cargarRegistros() {
 
+  const contenedor =
+    document.getElementById("listaFamilia");
 
+  const fecha = obtenerFechaHoy();
+
+  document.getElementById("fechaPanel").textContent =
+    "Registros del " + fecha;
+
+  contenedor.innerHTML =
+    "⏳ Consultando registros...";
+
+  try {
+
+    const respuesta = await fetch(API_URL, {
+
+      method: "POST",
+
+      headers: {
+        "Content-Type":
+          "text/plain;charset=utf-8"
+      },
+
+      body: JSON.stringify({
+
+        accion: "consultarRegistros",
+
+        fecha: fecha
+
+      })
+
+    });
+
+    const datos = await respuesta.json();
+
+    if (datos.resultado !== "OK") {
+
+      throw new Error(
+        "No se pudieron consultar los registros"
+      );
+
+    }
+
+    mostrarRegistros(datos.registros);
+
+  } catch (error) {
+
+    console.error(error);
+
+    contenedor.innerHTML =
+      "❌ No se pudieron cargar los registros.";
+
+  }
+
+}
+function obtenerFechaHoy() {
+
+  const ahora = new Date();
+
+  const año =
+    ahora.getFullYear();
+
+  const mes =
+    String(
+      ahora.getMonth() + 1
+    ).padStart(2, "0");
+
+  const dia =
+    String(
+      ahora.getDate()
+    ).padStart(2, "0");
+
+  return año + "-" + mes + "-" + dia;
+
+}
+
+function mostrarRegistros(registros) {
+
+  const contenedor =
+    document.getElementById("listaFamilia");
+
+  const familiares = [
+
+    "Pedro Luis Martínez Sánchez",
+
+    "Shelly Alexandra Torres Triviño",
+
+    "Pedro León Martínez Sánchez",
+
+    "Dora Sánchez Joven",
+
+    "Lina María Martínez Sánchez",
+
+    "Angie Natalia Martínez Sánchez",
+
+    "Nini Yohanna Rincón",
+
+    "Juan Gonzalo",
+
+    "Juan Sebastian Rivera",
+
+    "Kevin Pacheco"
+
+  ];
+
+  let html = "";
+
+  familiares.forEach(function(persona) {
+
+    const registrosPersona =
+      registros.filter(
+        r => r.persona === persona
+      );
+
+    if (registrosPersona.length === 0) {
+
+      html += `
+        <div class="familiar sin-registro">
+
+          <strong>${persona}</strong>
+
+          <span>
+            ⚪ Sin registro hoy
+          </span>
+
+        </div>
+      `;
+
+      return;
+
+    }
+
+    const ultimo =
+      registrosPersona[
+        registrosPersona.length - 1
+      ];
+
+    const esAyuda =
+      ultimo.estado === "NECESITO AYUDA";
+
+    const icono =
+      esAyuda ? "🔴" : "🟢";
+
+    let botonMapa = "";
+
+    if (
+      ultimo.latitud &&
+      ultimo.longitud
+    ) {
+
+      const mapa =
+        "https://www.google.com/maps?q=" +
+        encodeURIComponent(
+          ultimo.latitud +
+          "," +
+          ultimo.longitud
+        );
+
+      botonMapa = `
+        <a
+          href="${mapa}"
+          target="_blank"
+          class="botonMapa"
+        >
+          📍 Ver ubicación
+        </a>
+      `;
+
+    }
+
+    html += `
+
+      <div class="familiar">
+
+        <strong>
+          ${persona}
+        </strong>
+
+        <div>
+          ${icono}
+          ${ultimo.estado}
+        </div>
+
+        <div>
+          🕐 ${ultimo.hora}
+        </div>
+
+        ${botonMapa}
+
+      </div>
+
+    `;
+
+  });
+
+  contenedor.innerHTML = html;
+
+}
 </script>
-
-<footer style="text-align: center; margin-top: 30px; padding: 10px;">
+<footer style="text-align: center; margin-top: 5px; padding: 5px;">
   <h2 style="font-size: 5px; margin: 0;">Desarrollado Por Pedro Luis Martinez Sanchez</h2>
 </footer>
+
 </body>
 
 </html>
