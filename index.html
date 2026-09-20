@@ -8,104 +8,650 @@
   <meta name="viewport"
         content="width=device-width, initial-scale=1">
 
-  <meta name="theme-color"
-        content="#ffffff">
-
-  <link rel="manifest"
-        href="manifest.json">
+  <meta name="theme-color" content="#1976d2">
 
   <title>LOCALIZANDO FAMILIA</title>
 
 
   <style>
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      margin: 0;
-      padding: 20px;
-      text-align: center;
+    * {
+      box-sizing: border-box;
     }
+
+
+    body {
+
+      font-family: Arial, sans-serif;
+
+      background: #f4f6f8;
+
+      margin: 0;
+
+      padding: 15px;
+
+      color: #222;
+
+    }
+
 
     .contenedor {
-      max-width: 450px;
-      margin: auto;
+
+      max-width: 500px;
+
+      margin: 0 auto;
+
       background: white;
-      padding: 25px;
-      border-radius: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+      padding: 22px;
+
+      border-radius: 22px;
+
+      box-shadow:
+        0 4px 18px rgba(0,0,0,0.10);
+
     }
+
 
     .icono {
-      font-size: 60px;
+
+      font-size: 55px;
+
+      text-align: center;
+
+      margin-bottom: 5px;
+
     }
+
 
     h1 {
-      margin-bottom: 5px;
+
+      text-align: center;
+
+      font-size: 25px;
+
+      margin: 5px 0 10px;
+
     }
+
+
+    h2 {
+
+      margin: 0;
+
+    }
+
+
+    p {
+
+      text-align: center;
+
+    }
+
 
     select {
+
       width: 100%;
+
       padding: 15px;
-      margin: 20px 0;
-      border-radius: 10px;
+
+      margin: 15px 0;
+
+      border-radius: 12px;
+
       border: 1px solid #ccc;
+
       font-size: 16px;
+
+      background: white;
+
     }
+
 
     button {
+
       width: 100%;
-      padding: 20px;
-      margin-top: 15px;
+
+      padding: 17px;
+
+      margin-top: 12px;
+
       border: none;
+
       border-radius: 15px;
-      font-size: 20px;
+
+      font-size: 18px;
+
       font-weight: bold;
+
       cursor: pointer;
+
     }
+
+
+    button:active {
+
+      transform: scale(0.98);
+
+    }
+
 
     .bien {
+
       background: #28a745;
+
       color: white;
+
     }
+
 
     .ayuda {
+
       background: #dc3545;
+
       color: white;
+
     }
-    
-    .notificaciones {
-    background: #007bff;
-    color: white;
-    font-size: 16px;
-    padding: 15px;
-    }
+
 
     .cambiar {
+
       background: #6c757d;
+
       color: white;
+
       font-size: 14px;
+
       padding: 12px;
+
     }
+
 
     #pantallaPrincipal {
+
       display: none;
+
     }
+
 
     #pantallaSeleccion {
+
       display: block;
+
     }
 
-    #mensaje {
-      margin-top: 25px;
-      font-size: 17px;
-      font-weight: bold;
-    }
 
     .nombre {
-      font-size: 20px;
+
+      text-align: center;
+
+      font-size: 19px;
+
       font-weight: bold;
+
       margin: 15px 0;
+
+    }
+
+
+    #mensaje {
+
+      margin-top: 20px;
+
+      text-align: center;
+
+      font-size: 16px;
+
+      font-weight: bold;
+
+      min-height: 25px;
+
+    }
+
+
+
+    /* ==================================
+       PANEL FAMILIA
+    ================================== */
+
+
+    #panelFamilia {
+
+      margin-top: 28px;
+
+      padding-top: 25px;
+
+      border-top: 1px solid #ddd;
+
+    }
+
+
+    #panelFamilia h2 {
+
+      text-align: center;
+
+      font-size: 22px;
+
+      margin-bottom: 5px;
+
+    }
+
+
+    #fechaPanel {
+
+      text-align: center;
+
+      color: #666;
+
+      font-size: 14px;
+
+      margin-bottom: 15px;
+
+    }
+
+
+    #panelFamilia > button {
+
+      background: #222;
+
+      color: white;
+
+      font-size: 15px;
+
+      padding: 13px;
+
+      margin-bottom: 15px;
+
+    }
+
+
+    #listaFamilia {
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 12px;
+
+    }
+
+
+    /* ==================================
+       TARJETAS
+    ================================== */
+
+
+    .familiar {
+
+      background: white;
+
+      border: 1px solid #e5e5e5;
+
+      border-radius: 17px;
+
+      padding: 16px;
+
+      box-shadow:
+        0 3px 12px rgba(0,0,0,0.08);
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 7px;
+
+    }
+
+
+    .familiar strong {
+
+      font-size: 17px;
+
+      color: #222;
+
+    }
+
+
+    .estadoRegistro {
+
+      font-size: 15px;
+
+      font-weight: bold;
+
+    }
+
+
+    .horaRegistro {
+
+      color: #555;
+
+      font-size: 14px;
+
+    }
+
+
+    .precisionRegistro {
+
+      color: #777;
+
+      font-size: 12px;
+
+    }
+
+
+    .familiar.sin-registro {
+
+      background: #f5f5f5;
+
+      border-left: 5px solid #999;
+
+    }
+
+
+    .familiar.sin-registro span {
+
+      color: #777;
+
+      font-size: 14px;
+
+    }
+
+
+    /* ==================================
+       BOTÓN MAPA
+    ================================== */
+
+
+    .botonMapa {
+
+      display: block;
+
+      width: 100%;
+
+      margin-top: 5px;
+
+      padding: 12px;
+
+      text-align: center;
+
+      text-decoration: none;
+
+      border-radius: 12px;
+
+      background: #1976d2;
+
+      color: white;
+
+      font-size: 15px;
+
+      font-weight: bold;
+
+    }
+
+
+    .botonMapa:active {
+
+      transform: scale(0.97);
+
+    }
+
+
+    /* ==================================
+       MENSAJES
+    ================================== */
+
+
+    .cargando {
+
+      text-align: center;
+
+      padding: 20px;
+
+      color: #666;
+
+    }
+
+
+    .error {
+
+      text-align: center;
+
+      padding: 15px;
+
+      color: #c62828;
+
+      background: #ffebee;
+
+      border-radius: 12px;
+
+    }
+
+
+    /* ==================================
+       RESUMEN
+    ================================== */
+
+
+    #resumenFamilia {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 7px;
+
+      margin-bottom: 15px;
+
+    }
+
+
+    .resumen {
+
+      text-align: center;
+
+      padding: 10px 5px;
+
+      border-radius: 12px;
+
+      font-size: 12px;
+
+      font-weight: bold;
+
+    }
+
+
+    .resumenBien {
+
+      background: #e8f5e9;
+
+      color: #2e7d32;
+
+    }
+
+
+    .resumenAyuda {
+
+      background: #ffebee;
+
+      color: #c62828;
+
+    }
+
+
+    .resumenSin {
+
+      background: #eeeeee;
+
+      color: #666;
+
+    }
+
+
+    /* ==================================
+       MÓVIL
+    ================================== */
+
+
+    @media (max-width: 600px) {
+
+      body {
+
+        padding: 8px;
+
+      }
+
+
+      .contenedor {
+
+        padding: 17px;
+
+        border-radius: 18px;
+
+      }
+
+
+      h1 {
+
+        font-size: 22px;
+
+      }
+
+
+      .icono {
+
+        font-size: 48px;
+
+      }
+
+
+      .familiar {
+
+        padding: 15px;
+
+      }
+
+
+      .botonMapa {
+
+        padding: 14px;
+
+      }
+
+    }
+
+
+    /* ==================================
+       MODO OSCURO
+    ================================== */
+
+
+    @media (prefers-color-scheme: dark) {
+
+      body {
+
+        background: #121212;
+
+        color: white;
+
+      }
+
+
+      .contenedor {
+
+        background: #1e1e1e;
+
+      }
+
+
+      select {
+
+        background: #292929;
+
+        color: white;
+
+        border-color: #444;
+
+      }
+
+
+      .familiar {
+
+        background: #242424;
+
+        border-color: #444;
+
+      }
+
+
+      .familiar strong {
+
+        color: white;
+
+      }
+
+
+      .horaRegistro {
+
+        color: #ccc;
+
+      }
+
+
+      .precisionRegistro {
+
+        color: #aaa;
+
+      }
+
+
+      #fechaPanel {
+
+        color: #aaa;
+
+      }
+
+
+      #panelFamilia {
+
+        border-top-color: #444;
+
+      }
+
+
+      .familiar.sin-registro {
+
+        background: #292929;
+
+      }
+
+
+      .resumenBien {
+
+        background: #17351b;
+
+        color: #81c784;
+
+      }
+
+
+      .resumenAyuda {
+
+        background: #3b1717;
+
+        color: #ef9a9a;
+
+      }
+
+
+      .resumenSin {
+
+        background: #303030;
+
+        color: #bbb;
+
+      }
+
     }
 
   </style>
@@ -116,6 +662,11 @@
 <body>
 
 
+<!-- =====================================
+     SELECCIÓN DE PERSONA
+====================================== -->
+
+
 <div id="pantallaSeleccion">
 
   <div class="contenedor">
@@ -124,10 +675,15 @@
       👨‍👩‍👧‍👦
     </div>
 
-    <h1>LOCALIZANDO FAMILIA</h1>
-   
 
-    <p>¿Quién eres?</p>
+    <h1>
+      LOCALIZANDO FAMILIA
+    </h1>
+
+
+    <p>
+      ¿Quién eres?
+    </p>
 
 
     <select id="persona">
@@ -136,46 +692,56 @@
         Seleccionar familiar
       </option>
 
+
       <option value="Pedro Luis Martínez Sánchez">
         Pedro Luis Martínez Sánchez
       </option>
+
 
       <option value="Shelly Alexandra Torres Triviño">
         Shelly Alexandra Torres Triviño
       </option>
 
+
       <option value="Pedro León Martínez Sánchez">
         Pedro León Martínez Sánchez
       </option>
+
 
       <option value="Dora Sánchez Joven">
         Dora Sánchez Joven
       </option>
 
+
       <option value="Lina María Martínez Sánchez">
         Lina María Martínez Sánchez
       </option>
 
+
       <option value="Angie Natalia Martínez Sánchez">
         Angie Natalia Martínez Sánchez
       </option>
-      
-       <option value="Nini Yohanna Rincón">
+
+
+      <option value="Nini Yohanna Rincón">
         Nini Yohanna Rincón
-        </option>
-      
-       <option value="Juan Gonzalo">
+      </option>
+
+
+      <option value="Juan Gonzalo">
         Juan Gonzalo
-        </option>
+      </option>
 
-       <option value="Juan Sebastian Rivera">
+
+      <option value="Juan Sebastian Rivera">
         Juan Sebastian Rivera
-        </option>
+      </option>
 
-       <option value="Kevin Pacheco">
+
+      <option value="Kevin Pacheco">
         Kevin Pacheco
-        </option>
-      
+      </option>
+
     </select>
 
 
@@ -193,27 +759,43 @@
 
 
 
+<!-- =====================================
+     PANTALLA PRINCIPAL
+====================================== -->
+
+
 <div id="pantallaPrincipal">
 
   <div class="contenedor">
+
 
     <div class="icono">
       👨‍👩‍👧‍👦
     </div>
 
-    <h1>LOCALIZANDO FAMILIA</h1>
 
-    <div class="nombre"
-         id="nombreUsuario">
+    <h1>
+      LOCALIZANDO FAMILIA
+    </h1>
+
+
+    <div
+      class="nombre"
+      id="nombreUsuario">
     </div>
 
 
-    <p>¿Cómo estás?</p>
+    <p>
+      ¿Cómo estás?
+    </p>
 
 
     <button
       class="bien"
-      onclick="enviarEstado('ESTOY BIEN', 'NORMAL')">
+      onclick="enviarEstado(
+        'ESTOY BIEN',
+        'NORMAL'
+      )">
 
       🟢 ESTOY BIEN
 
@@ -222,20 +804,16 @@
 
     <button
       class="ayuda"
-      onclick="enviarEstado('NECESITO AYUDA', 'EMERGENCIA')">
+      onclick="enviarEstado(
+        'NECESITO AYUDA',
+        'EMERGENCIA'
+      )">
 
       🔴 NECESITO AYUDA
 
     </button>
 
-    <button
-      class="notificaciones"
-      onclick="activarNotificaciones()">
-    
-      🔔 ACTIVAR NOTIFICACIONES
-    
-    </button>
-    
+
     <button
       class="cambiar"
       onclick="cambiarPersona()">
@@ -245,47 +823,137 @@
     </button>
 
 
+
+    <!-- ==================================
+         PANEL FAMILIA
+    =================================== -->
+
+
+    <section id="panelFamilia">
+
+
+      <h2>
+        👨‍👩‍👧‍👦 Estado de mi familia
+      </h2>
+
+
+      <p id="fechaPanel"></p>
+
+
+      <div id="resumenFamilia">
+
+        <div class="resumen resumenBien">
+          🟢<br>
+          <span id="cantidadBien">0</span>
+          BIEN
+        </div>
+
+
+        <div class="resumen resumenAyuda">
+          🔴<br>
+          <span id="cantidadAyuda">0</span>
+          AYUDA
+        </div>
+
+
+        <div class="resumen resumenSin">
+          ⚪<br>
+          <span id="cantidadSin">0</span>
+          SIN REGISTRO
+        </div>
+
+      </div>
+
+
+      <button
+        onclick="cargarRegistros()">
+
+        🔄 ACTUALIZAR
+
+      </button>
+
+
+      <div id="listaFamilia">
+
+        <div class="cargando">
+          Pulsa ACTUALIZAR para consultar.
+        </div>
+
+      </div>
+
+
+    </section>
+
+
     <div id="mensaje"></div>
+
 
   </div>
 
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js"></script>
+
+
+<!-- =====================================
+     JAVASCRIPT
+====================================== -->
+
 
 <script>
 
-firebase.initializeApp({
-  apiKey: "AIzaSyDh-I8sewGb5YvKGjxsdcLooQqz7ybgPi4",
-  authDomain: "localizando-familia.firebaseapp.com",
-  projectId: "localizando-familia",
-  storageBucket: "localizando-familia.firebasestorage.app",
-  messagingSenderId: "1081866124616",
-  appId: "1:1081866124616:web:72a5452cd8f6a4db62077d"
-});
 
-const messaging = firebase.messaging();
-// =====================================
-// URL DE APPS SCRIPT
-// =====================================
-//CONECTAR 
+/* =====================================
+   URL DE APPS SCRIPT
+===================================== */
+
+
 const API_URL =
-"https://script.google.com/macros/s/AKfycbxJ-S74WVwbNZbNdrZ8LnvvdhMJGBbvSfkf8wH3BHeSgP5oY8SxG57HlcR3T2AWiM8c_w/exec";
+  "https://script.google.com/macros/s/AKfycbxJ-S74WVwbNZbNdrZ8LnvvdhMJGBbvSfkf8wH3BHeSgP5oY8SxG57HlcR3T2AWiM8c_w/exec";
 
 
 
-// =====================================
-// INICIO
-// =====================================
+/* =====================================
+   FAMILIARES
+===================================== */
+
+
+const familiares = [
+
+  "Pedro Luis Martínez Sánchez",
+
+  "Shelly Alexandra Torres Triviño",
+
+  "Pedro León Martínez Sánchez",
+
+  "Dora Sánchez Joven",
+
+  "Lina María Martínez Sánchez",
+
+  "Angie Natalia Martínez Sánchez",
+
+  "Nini Yohanna Rincón",
+
+  "Juan Gonzalo",
+
+  "Juan Sebastian Rivera",
+
+  "Kevin Pacheco"
+
+];
+
+
+
+/* =====================================
+   AL ABRIR
+===================================== */
+
 
 window.onload = function() {
 
-  registrarServiceWorker();
-
-
   const personaGuardada =
-    localStorage.getItem("familiaPersona");
+    localStorage.getItem(
+      "familiaPersona"
+    );
 
 
   if (personaGuardada) {
@@ -304,46 +972,17 @@ window.onload = function() {
 
 
 
-// =====================================
-// SERVICE WORKER
-// =====================================
+/* =====================================
+   GUARDAR PERSONA
+===================================== */
 
-function registrarServiceWorker() {
-
-  if ("serviceWorker" in navigator) {
-
-    navigator.serviceWorker
-      .register("sw.js")
-      .then(function() {
-
-        console.log(
-          "Service Worker registrado"
-        );
-
-      })
-      .catch(function(error) {
-
-        console.error(
-          "Error Service Worker:",
-          error
-        );
-
-      });
-
-  }
-
-}
-
-
-
-// =====================================
-// GUARDAR PERSONA
-// =====================================
 
 function guardarPersona() {
 
   const persona =
-    document.getElementById("persona").value;
+    document.getElementById(
+      "persona"
+    ).value;
 
 
   if (!persona) {
@@ -371,9 +1010,10 @@ function guardarPersona() {
 
 
 
-// =====================================
-// MOSTRAR PRINCIPAL
-// =====================================
+/* =====================================
+   MOSTRAR PRINCIPAL
+===================================== */
+
 
 function mostrarPantallaPrincipal(
   persona
@@ -391,15 +1031,19 @@ function mostrarPantallaPrincipal(
 
   document.getElementById(
     "nombreUsuario"
-  ).innerHTML = persona;
+  ).textContent = persona;
+
+
+  cargarRegistros();
 
 }
 
 
 
-// =====================================
-// SELECCIÓN
-// =====================================
+/* =====================================
+   MOSTRAR SELECCIÓN
+===================================== */
+
 
 function mostrarPantallaSeleccion() {
 
@@ -416,9 +1060,10 @@ function mostrarPantallaSeleccion() {
 
 
 
-// =====================================
-// CAMBIAR PERSONA
-// =====================================
+/* =====================================
+   CAMBIAR PERSONA
+===================================== */
+
 
 function cambiarPersona() {
 
@@ -431,114 +1076,14 @@ function cambiarPersona() {
 
 }
 
-async function activarNotificaciones() {
-
-  const mensaje =
-    document.getElementById("mensaje");
-
-  try {
-
-    if (!("Notification" in window)) {
-
-      mensaje.innerHTML =
-        "❌ Este dispositivo no admite notificaciones.";
-
-      return;
-    }
 
 
-    const permiso =
-      await Notification.requestPermission();
+/* =====================================
+   ENVIAR ESTADO
+===================================== */
 
 
-    if (permiso !== "granted") {
-
-      mensaje.innerHTML =
-        "❌ Permiso de notificaciones: " + permiso;
-
-      return;
-    }
-
-
-    const registro =
-  await navigator.serviceWorker.register(
-    "./sw.js"
-  );
-
-
-    const token =
-      await messaging.getToken({
-
-        vapidKey:
-          "BEK4AKZmhOpwX7SnMFoOx9s0etxLNtH5TnoY7iT47pt3HW0MRKzqoKh1BnYjNJK71t6yqkWL0ySWI31o49maflA",
-
-        serviceWorkerRegistration:
-          registro
-
-      });
-
-
-    if (!token) {
-
-      mensaje.innerHTML =
-        "❌ Firebase no pudo obtener el token.";
-
-      return;
-    }
-
-
-    console.log("TOKEN FCM:", token);
-    const persona = document.getElementById("persona").value;
-
-if (!persona) {
-  mensaje.innerHTML =
-    "⚠️ Primero selecciona tu nombre.";
-  return;
-}
-
-await fetch(API_URL, {
-  method: "POST",
-  headers: {
-    "Content-Type": "text/plain;charset=utf-8"
-  },
-  body: JSON.stringify({
-    accion: "registrarDispositivo",
-    persona: persona,
-    token: token
-  })
-});
-
-mensaje.innerHTML =
-  "✅ Notificaciones activadas y teléfono registrado.";
-   /* const API_URL =
-    "https://script.google.com/macros/s/AKfycbxJ-S74WVwbNZbNdrZ8LnvvdhMJGBbvSfkf8wH3BHeSgP5oY8SxG57HlcR3T2AWiM8c_w/exec";
-*/
-    mensaje.innerHTML =
-      "✅ Notificaciones activadas correctamente.";
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "Error Firebase Messaging:",
-      error
-    );
-
-
-    mensaje.innerHTML =
-      "❌ Error al activar las notificaciones:<br>" +
-      error.message;
-
-  }
-
-}
-
-// =====================================
-// ENVIAR ESTADO
-// =====================================
-
-function enviarEstado(
+async function enviarEstado(
   estado,
   tipo
 ) {
@@ -557,7 +1102,7 @@ function enviarEstado(
 
   if (!persona) {
 
-    mensaje.innerHTML =
+    mensaje.textContent =
       "⚠️ No hay un familiar seleccionado.";
 
     return;
@@ -565,13 +1110,13 @@ function enviarEstado(
   }
 
 
-  mensaje.innerHTML =
+  mensaje.textContent =
     "📍 Obteniendo ubicación...";
 
 
   if (!navigator.geolocation) {
 
-    mensaje.innerHTML =
+    mensaje.textContent =
       "❌ Este dispositivo no permite obtener ubicación.";
 
     return;
@@ -581,13 +1126,15 @@ function enviarEstado(
 
   navigator.geolocation.getCurrentPosition(
 
-    function(posicion) {
+    async function(posicion) {
 
-      mensaje.innerHTML =
+      mensaje.textContent =
         "📤 Enviando información...";
 
 
       const datos = {
+
+        accion: "guardarRegistro",
 
         persona: persona,
 
@@ -607,50 +1154,58 @@ function enviarEstado(
       };
 
 
-      fetch(
-        API_URL,
-        {
+      try {
 
-          method: "POST",
+        const respuesta =
+          await fetch(
+            API_URL,
+            {
 
-          body:
-            JSON.stringify(datos)
+              method: "POST",
 
-        }
-      )
+              headers: {
 
-      .then(function(respuesta) {
+                "Content-Type":
+                  "text/plain;charset=utf-8"
 
-        return respuesta.json();
+              },
 
-      })
+              body:
+                JSON.stringify(datos)
 
-      .then(function(resultado) {
+            }
+          );
+
+
+        const resultado =
+          await respuesta.json();
+
 
         if (
           resultado.resultado === "OK"
         ) {
 
-          mensaje.innerHTML =
+          mensaje.textContent =
             "✅ Información enviada correctamente.";
+
+          cargarRegistros();
 
         } else {
 
-          mensaje.innerHTML =
+          mensaje.textContent =
             "❌ No se pudo guardar.";
 
         }
 
-      })
 
-      .catch(function(error) {
+      } catch (error) {
 
         console.error(error);
 
-        mensaje.innerHTML =
-          "❌ Error de conexión.";
+        mensaje.textContent =
+          "❌ Error al enviar la información.";
 
-      });
+      }
 
     },
 
@@ -659,7 +1214,7 @@ function enviarEstado(
 
       console.error(error);
 
-      mensaje.innerHTML =
+      mensaje.textContent =
         "❌ No fue posible obtener tu ubicación.";
 
     },
@@ -680,11 +1235,420 @@ function enviarEstado(
 }
 
 
+
+/* =====================================
+   FECHA ACTUAL
+===================================== */
+
+
+function obtenerFechaHoy() {
+
+  const ahora =
+    new Date();
+
+
+  const año =
+    ahora.getFullYear();
+
+
+  const mes =
+    String(
+      ahora.getMonth() + 1
+    ).padStart(2, "0");
+
+
+  const dia =
+    String(
+      ahora.getDate()
+    ).padStart(2, "0");
+
+
+  return (
+    año +
+    "-" +
+    mes +
+    "-" +
+    dia
+  );
+
+}
+
+
+
+/* =====================================
+   CONSULTAR REGISTROS
+===================================== */
+
+
+async function cargarRegistros() {
+
+  const contenedor =
+    document.getElementById(
+      "listaFamilia"
+    );
+
+
+  const fecha =
+    obtenerFechaHoy();
+
+
+  document.getElementById(
+    "fechaPanel"
+  ).textContent =
+    "Registros del " + fecha;
+
+
+  contenedor.innerHTML =
+    '<div class="cargando">' +
+    '⏳ Consultando registros...' +
+    '</div>';
+
+
+  try {
+
+    const respuesta =
+      await fetch(
+        API_URL,
+        {
+
+          method: "POST",
+
+          headers: {
+
+            "Content-Type":
+              "text/plain;charset=utf-8"
+
+          },
+
+          body:
+            JSON.stringify({
+
+              accion:
+                "consultarRegistros",
+
+              fecha:
+                fecha
+
+            })
+
+        }
+      );
+
+
+    const datos =
+      await respuesta.json();
+
+
+    if (
+      datos.resultado !== "OK"
+    ) {
+
+      throw new Error(
+        "No se pudieron consultar los registros."
+      );
+
+    }
+
+
+    mostrarRegistros(
+      datos.registros || []
+    );
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    contenedor.innerHTML =
+      '<div class="error">' +
+      '❌ No se pudieron cargar los registros.' +
+      '<br><br>' +
+      'Revisa que Apps Script tenga activa la función consultarRegistros.' +
+      '</div>';
+
+  }
+
+}
+
+
+
+/* =====================================
+   MOSTRAR REGISTROS
+===================================== */
+
+
+function mostrarRegistros(
+  registros
+) {
+
+  const contenedor =
+    document.getElementById(
+      "listaFamilia"
+    );
+
+
+  let cantidadBien = 0;
+
+  let cantidadAyuda = 0;
+
+  let cantidadSin = 0;
+
+
+  let html = "";
+
+
+  familiares.forEach(
+    function(persona) {
+
+
+      const registrosPersona =
+        registros.filter(
+          function(registro) {
+
+            return (
+              String(
+                registro.persona
+              ).trim() ===
+              persona
+            );
+
+          }
+        );
+
+
+      /* ==============================
+         SIN REGISTRO
+      ============================== */
+
+
+      if (
+        registrosPersona.length === 0
+      ) {
+
+        cantidadSin++;
+
+
+        html += `
+
+          <div class="familiar sin-registro">
+
+            <strong>
+              ⚪ ${persona}
+            </strong>
+
+            <span>
+              Sin registro hoy
+            </span>
+
+          </div>
+
+        `;
+
+
+        return;
+
+      }
+
+
+
+      /* ==============================
+         ÚLTIMO REGISTRO
+      ============================== */
+
+
+      const ultimo =
+        registrosPersona[
+          registrosPersona.length - 1
+        ];
+
+
+      const esAyuda =
+        String(
+          ultimo.estado || ""
+        ).toUpperCase() ===
+        "NECESITO AYUDA";
+
+
+      if (esAyuda) {
+
+        cantidadAyuda++;
+
+      } else {
+
+        cantidadBien++;
+
+      }
+
+
+      const icono =
+        esAyuda
+          ? "🔴"
+          : "🟢";
+
+
+      const estado =
+        ultimo.estado ||
+        "SIN ESTADO";
+
+
+      const hora =
+        ultimo.hora ||
+        "--";
+
+
+      const latitud =
+        ultimo.latitud;
+
+
+      const longitud =
+        ultimo.longitud;
+
+
+      let botonMapa = "";
+
+
+      if (
+        latitud !== undefined &&
+        latitud !== null &&
+        latitud !== "" &&
+        longitud !== undefined &&
+        longitud !== null &&
+        longitud !== ""
+      ) {
+
+
+        const mapa =
+          "https://www.google.com/maps?q=" +
+          encodeURIComponent(
+            latitud +
+            "," +
+            longitud
+          );
+
+
+        botonMapa = `
+
+          <a
+            href="${mapa}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="botonMapa"
+          >
+
+            📍 VER UBICACIÓN
+
+          </a>
+
+        `;
+
+      }
+
+
+
+      let precisionTexto = "";
+
+
+      if (
+        ultimo.precision !== undefined &&
+        ultimo.precision !== null &&
+        ultimo.precision !== ""
+      ) {
+
+        precisionTexto =
+          "🎯 Precisión aproximada: " +
+          Math.round(
+            Number(
+              ultimo.precision
+            )
+          ) +
+          " m";
+
+      }
+
+
+
+      html += `
+
+        <div class="familiar">
+
+          <strong>
+            ${icono} ${persona}
+          </strong>
+
+          <div class="estadoRegistro">
+
+            ${estado}
+
+          </div>
+
+          <div class="horaRegistro">
+
+            🕐 ${hora}
+
+          </div>
+
+          ${
+            precisionTexto
+              ? `<div class="precisionRegistro">
+                   ${precisionTexto}
+                 </div>`
+              : ""
+          }
+
+          ${botonMapa}
+
+        </div>
+
+      `;
+
+    }
+  );
+
+
+  contenedor.innerHTML =
+    html;
+
+
+  document.getElementById(
+    "cantidadBien"
+  ).textContent =
+    cantidadBien;
+
+
+  document.getElementById(
+    "cantidadAyuda"
+  ).textContent =
+    cantidadAyuda;
+
+
+  document.getElementById(
+    "cantidadSin"
+  ).textContent =
+    cantidadSin;
+
+}
+
+
 </script>
 
-<footer style="text-align: center; margin-top: 30px; padding: 10px;">
-  <h2 style="font-size: 5px; margin: 0;">Desarrollado Por Pedro Luis Martinez Sanchez</h2>
+
+
+<footer
+  style="
+    text-align:center;
+    margin-top:20px;
+    padding:10px;
+    color:#777;
+    font-size:11px;
+  "
+>
+
+  Desarrollado por
+  Pedro Luis Martinez Sanchez
+
 </footer>
+
+
 </body>
 
 </html>
