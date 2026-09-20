@@ -19,36 +19,22 @@ const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage(function(payload) {
 
-  console.log(
-    "[firebase-messaging-sw.js] Mensaje recibido:",
-    payload
-  );
+  console.log("MENSAJE FCM:", payload);
 
-  const titulo =
-    payload.notification?.title ||
+  const title =
     payload.data?.title ||
     "LOCALIZANDO FAMILIA";
 
-  const cuerpo =
-    payload.notification?.body ||
+  const body =
     payload.data?.body ||
     "¿TU FAMILIA QUIERE SABER SI ESTÁS BIEN?";
 
-  self.registration.showNotification(
-    titulo,
-    {
-      body: cuerpo,
+  self.registration.showNotification(title, {
+    body: body,
+    icon: "/localizando-familia/icon-192.png",
+    badge: "/localizando-familia/icon-192.png",
+    tag: "localizando-familia",
+    renotify: true
+  });
 
-      icon:
-        "https://pedroluismartinezsan.github.io/localizando-familia/icon-192.png",
-
-      badge:
-        "https://pedroluismartinezsan.github.io/localizando-familia/icon-192.png",
-
-      data: {
-        url:
-          "https://pedroluismartinezsan.github.io/localizando-familia/"
-      }
-    }
-  );
 });
